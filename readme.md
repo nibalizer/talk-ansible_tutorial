@@ -104,7 +104,7 @@ PLAY RECAP *********************************************************************
 199.19.215.26              : ok=2    changed=0    unreachable=0    failed=0   
 ```
 
-## For examples 3-8 you'll run exactly as above
+## For examples 3-8 you'll run ``ansible-playbook`` exactly as above
 
 
 # References
