@@ -1,0 +1,33 @@
+
+- hosts: all
+  become: true
+  vars:
+     human_name: "Spencer Krum"
+  tasks:
+  - name: ensure apache is at the latest version
+    apt:
+      name: apache2
+      state: latest
+    when: ansible_os_family == 'Debian'
+  - name: ensure apache is at the latest version
+    apt:
+      name: httpd
+      state: latest
+    when: ansible_os_family == 'RedHat'
+  - name: manage apache service
+    service:
+      name: httpd
+      state: started
+      enabled: yes
+    when: ansible_os_family == 'RedHat'
+  - name: manage apache service
+    service:
+      name: apache2
+      state: started
+      enabled: yes
+    when: ansible_os_family == 'Debian'
+  - name: manage main web page
+    template:
+      src: hello_world.html.j2
+      dest: /var/www/html/index.html
+      mode: 0644

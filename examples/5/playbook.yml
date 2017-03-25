@@ -1,0 +1,10 @@
+
+- hosts: all
+  become: true
+  tasks:
+  - name: ensure apache is at the latest version
+    apt: name=apache2 state=latest
+  - copy:
+      src: hello_world.html
+      dest: /var/www/html/index.html
+      mode: 0644

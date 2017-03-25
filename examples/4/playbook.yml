@@ -1,0 +1,7 @@
+
+- hosts: all
+  become: true
+  tasks:
+  - debug: msg="debug {{inventory_hostname}}"
+  - name: ensure figlet is at the latest version
+    apt: name=figlet state=latest

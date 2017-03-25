@@ -1,0 +1,12 @@
+
+- hosts: all
+  become: true
+  vars:
+     human_name: "Spencer Krum"
+  tasks:
+  - name: ensure apache is at the latest version
+    apt: name=apache2 state=latest
+  - template:
+      src: hello_world.html.j2
+      dest: /var/www/html/index.html
+      mode: 0644

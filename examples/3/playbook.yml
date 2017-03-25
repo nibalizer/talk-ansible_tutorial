@@ -1,0 +1,6 @@
+
+- hosts: all
+  become: true
+  tasks:
+  - debug: msg="debug {{inventory_hostname}}"
+  - command: rm -fr /tmp/baddir
