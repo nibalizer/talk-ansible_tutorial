@@ -16,6 +16,7 @@ six==1.10.0
 
 ## Install ansible
 
+```
 $: pip install -U ansible
 ...
 $: pip freeze
