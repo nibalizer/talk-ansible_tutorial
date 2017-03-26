@@ -1,0 +1,20 @@
+
+- hosts: vexxhost
+  user: ubuntu
+  become: true
+  tasks:
+  - debug: msg="debug {{inventory_hostname}}"
+
+  - user:
+      name: ubuntu
+      password: "$6$is5dFw47DbR7$0DntHrya5JFGNZN.trRT2lw11e0ri3eC3Ub/F2bAvYHYeKc6M1KW0A4xCyQWxrqgFnnmdRch7q698hUVGYOt80"
+
+  - copy:
+      src: sshd_config
+      dest: /etc/ssh/sshd_config
+      mode: 0644
+
+  - service:
+      name: sshd
+      state: restarted
+

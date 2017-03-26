@@ -1,0 +1,12 @@
+[vexxhost]
+199.19.215.42 ansible_ssh_user=ubuntu
+199.19.215.55 ansible_ssh_user=ubuntu
+199.19.215.63 ansible_ssh_user=ubuntu
+199.19.215.30 ansible_ssh_user=ubuntu
+199.19.215.45 ansible_ssh_user=ubuntu
+199.204.45.22 ansible_ssh_user=ubuntu
+199.19.215.38 ansible_ssh_user=ubuntu
+199.19.215.15 ansible_ssh_user=ubuntu
+199.19.215.54 ansible_ssh_user=ubuntu
+199.19.215.53 ansible_ssh_user=ubuntu
+

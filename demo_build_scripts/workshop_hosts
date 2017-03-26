@@ -1,0 +1,12 @@
+#!/bin/bash
+
+
+flavor='bbcb7eb5-5c8d-498f-9d7e-307c575d3566'
+image='d3100436-1963-40ad-89c0-1d5feb9e3bbc'
+
+for i in $(seq 1 10);
+do
+    echo openstack server create --image $image --flavor $flavor --key nibz  libreplanet-demo-$i
+    openstack server create --image $image --flavor $flavor --key nibz  libreplanet-demo-$i
+done
+
