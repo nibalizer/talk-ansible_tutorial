@@ -10,7 +10,7 @@
       state: latest
     when: ansible_os_family == 'Debian'
   - name: ensure apache is at the latest version
-    apt:
+    yum:
       name: httpd
       state: latest
     when: ansible_os_family == 'RedHat'
@@ -32,7 +32,7 @@
       state: latest
     when: ansible_os_family == 'Debian'
   - name: ensure mod wsgi is at the latest version
-    apt:
+    yum:
       name: mod_wsgi
       state: latest
     when: ansible_os_family == 'RedHat'
@@ -51,6 +51,3 @@
     - name: restart apache
       service: name=apache2 state=restarted
       when: ansible_os_family == 'Debian'
-    - name: restart apache
-      service: name=httpd state=restarted
-      when: ansible_os_family == 'RedHat'
