@@ -1,0 +1,111 @@
+* Who am I
+* A brief history of config mgmt
+* Wrote a book
+* What have I used ansible for
+** Deploying Public cloud
+** Deploying CI software
+** My home servers
+* The four layers of infrastructure as code
+** write code to configure servers
+** put that on a bastion host
+** put that in a cron
+** put that in a git repo
+** use code review on the git repo
+
+* Ansible basics
+* Ansible command
+** pip install
+** ssh to host to accept host key
+** install python on host (seems that python3 is installed by default)
+** inventory file
+*** what is
+**** list of hosts, one of the places to add configuration
+*** write inventory file, see example 1
+** ansible all -i inventory --list-hosts
+** ansible all -i inventory -m ping
+** ansible myhosts -i inventory -m ping
+** ansible all -i inventory -m setup
+** ansible.cfg
+*** config file
+*** multiples of these, global, local to user, cwd
+*** see example 2
+*** ansible 'myhosts;derp' syntax
+*** executable inventory / dynamic inventory files (return a json blob)
+**** examples: postgres database, openstack itself, hashicorp terraform state file
+
+* ansible-playbook
+** the get-stuff-done part of ansible
+** YAML - a brief intro
+*** data structure
+*** interchangable with json (and yaml parsers can read json)
+*** wheeee
+*** strings, numbers, arrays, dicts/hashes, nesting
+** runs ansible "playbooks" on hosts
+** playbooks are lists of tasks and roles
+** '-s', '-S', '-b', '-k'
+** I pretty much always use passwordless sudo and ssh keys
+** Example 3
+** debug thing is a "module" (and kind of also a task)
+** command module is a hack, but it works
+** Exmaple 4
+*** example of idempotence
+*** apt/yum specific
+*** notice the changed=1
+*** run again, no new changes
+*** Note that if debian/ubuntu updates what 'latest' is we'll see updates when we run this
+*** Note that writing a task per package means it has to fire up apt for every package, so that can be super slow. Inb4 docker.
+
+Further examples
+
+Example 5
+
+** This is intentionally put into a "who cares about standards" way of writing it.
+** these are both tasks, one has an explicit name and uses the chaining syntax, the other has no specific name and uses the fully expanded structure
+
+Website should work
+
+Example 6
+
+* Variables
+** Variables in ansible can get a little screwy, but they totally do work
+** Be careful around bools and for things to auto stringify
+** I do more screwing with it than reasoning about what is going on (I'm also privleged enough to work with people who are better at ansible than I am, so I can always involve them in getting my problem solved)
+
+** Jinja
+*** Jinja2 is the templating (and kindof the inline interpreter) thing in ansible (see example 3)
+*** it's pretty useful generally in python. Whenvere you get a form email from me, it was probably templated using jinja 2.
+** Templates are in jinja 2 format. Jinja has things like loops and if/conditional formats.
+** Jinja uses the '.' syntax to dig into a hash-like data structure
+** This example has variables from 3 sources.
+*** ansible facts
+*** playbook level variables
+*** group_vars
+**** describe what group vars are
+**** a group named in inventory will include variables from that group name in group_vars
+** this variable source explosion can get pretty confusing, there is one global namespace everything is smooshed into
+** you can get weird compile errors from a variable being needed but not set etc
+** this example hides a secret into the head of the html page. there isn't really any reason to do this. But an external group_vars file allows you to keep secrets inside it while keeping the rest of the ansible codebase checked into version control
+** also look at ansible-vault and hashicorp-vault
+
+
+Example 7
+
+* We've fully cleaned up the code into one consistent format
+* Added when clauses
+** these can turn on or off tasks. can be fact driven or variable driven
+
+
+Example 8
+
+* we've added a new package: mod_wsgi
+* we've started using the 'apache2_module' module. This is an example of how high level things in unix administration get contained inside modules
+* we've added handlers to restart the httpd service after the module in installed and enabled.
+* As you can see this gets pretty funky!
+
+
+Outro
+
+We've done lots of ansible today, wooo!
+
+Things we haven't covered: roles, multiple hosts, registiring variables, set_fact, add_host, and any of the cloud modules. Still, this is a good start to ansible and config mgmt and I hope you enjoyed it. Happy hacking
+
